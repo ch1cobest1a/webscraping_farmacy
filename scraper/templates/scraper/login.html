@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+        }
+        .login-container {
+            position: relative;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            margin: 100px auto;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop>
+        <source src="{% static 'wallpaper/210797_small.mp4' %}" type="video/mp4">
+    </video>
+
+    <div class="login-container">
+        <h2>Ingrese sus credenciales</h2>
+        <form method="post">
+            {% csrf_token %}
+            {% if request.session.username %}
+                <!-- Mostrar campo de contraseña si ya se ingresó el nombre de usuario -->
+                <input type="password" name="password" placeholder="Contraseña" required>
+            {% else %}
+                <!-- Mostrar campo de usuario si no se ha ingresado aún -->
+                <input type="text" name="username" placeholder="Nombre de Usuario" required>
+            {% endif %}
+            <button type="submit">Continuar</button>
+        </form>
+        {% if messages %}
+            <div>
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

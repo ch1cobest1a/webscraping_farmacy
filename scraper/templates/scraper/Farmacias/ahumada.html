@@ -1,0 +1,103 @@
+{% extends 'scraper/base.html' %}
+
+{% load static %}
+
+{% block title %}
+Ahumada
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Extracción de Datos - Ahumada</h2>
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="categoria-select">Seleccione Categoría</label>
+                <select id="categoria-select" class="form-control">
+                    <option value="">Seleccione una categoría</option>
+                    <option value="medicamentos">Medicamentos</option>
+                </select>
+            </div>
+            <!-- Cambiado el identificador de la farmacia a 'ahumada' -->
+            <button type="button" onclick="startExtraction('ahumada')" class="btn btn-primary">Iniciar Extracción</button>
+            <button type="button" onclick="cancelExtraction('ahumada')" id="cancelButton" class="btn btn-danger" disabled>Cancelar Extracción</button>
+            <button type="button" onclick="clearTable()" id="clearButton" class="btn btn-warning" disabled>Limpiar Tabla</button>
+        </div>
+    </div>
+
+    <h3>Resultados de la Extracción</h3>
+
+    <!-- Contenedor para la búsqueda y el spinner -->
+    <div class="card">
+        <div class="card-body">
+            <div class="mb-3">
+                <input type="text" id="search-input" class="form-control" placeholder="Buscar por SKU..." disabled>
+            </div>
+
+            <!-- Contenedor de información de extracción y spinner -->
+            <div class="d-flex flex-column align-items-center mb-3">
+                <!-- Spinner de carga -->
+                <div id="loadingSpinner" class="custom-hidden mb-2">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <div id="extraction-info" class="d-flex justify-content-center">
+                        <p class="mb-0 mr-4">Total SKU extraído: <span id="total-sku">0</span></p>
+                        <p class="mb-0 mr-4">Última página extracción: <span id="current-page">1</span></p>
+                        <p class="mb-0">Último producto extraído: <span id="last-product">N/A</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabla de resultados -->
+            <div class="table-responsive">
+                <table class="table table-striped" id="results-table">
+                    <thead>
+                        <tr>
+                            <th>SKU</th>
+                            <th>Nombre del Producto</th>
+                            <th>Precio de Venta</th>
+                            <th>Precio Normal</th>
+                            <th>URL Producto</th>
+                            <th>Imagen</th>
+                            <th>Tiene Banner Ahumada Contigo</th>
+                            <th>Categoría</th>
+                        </tr>
+                    </thead>
+                    <tbody id="extraction-results">
+                        <!-- Resultados de extracción se mostrarán aquí -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Paginación -->
+            <nav>
+                <ul class="pagination justify-content-center" id="pagination">
+                    <!-- Botones de paginación se generarán dinámicamente aquí -->
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de descarga -->
+<div class="modal" tabindex="-1" role="dialog" id="downloadModal" style="display: none;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Extracción Completada</h5>
+        <button type="button" class="close" onclick="hideDownloadModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>La extracción de datos se ha completado. ¿Desea guardar el archivo?</p>
+        <a id="downloadLink" href="#" class="btn btn-success" onclick="downloadExcel()">Descargar archivo</a>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="hideDownloadModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

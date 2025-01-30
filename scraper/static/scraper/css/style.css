@@ -1,11 +1,6 @@
 /* style.css */
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-    margin: 0;
-   
-}
+
 
 .container {
     background-color: #ffffff;
@@ -71,4 +66,9 @@ h2 {
 
 .custom-hidden {
     display: none !important;
+}
+
+
+.spinner-border{
+    border-right-color: #00f941
 }

@@ -1,0 +1,55 @@
+{% extends 'scraper/base.html' %}
+
+{% load static %}
+
+{% block title %}
+Prueba
+{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Scraping Tool</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+    <h1 class="mt-5">Web Scraping Tool</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="url">Enter the URL:</label>
+            <input type="text" id="url" name="url" class="form-control" placeholder="https://example.com" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <hr>
+    
+    <!-- Mostrar datos extraídos -->
+    <h2>Datos extraídos</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Título</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data %}
+            <tr>
+                <td>{{ item.title }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>
+
+{% endblock %}

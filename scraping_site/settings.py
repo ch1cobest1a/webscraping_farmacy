@@ -28,10 +28,20 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+STATIC_URL = '/static/'
+
 STATICFILES_DIRS = [
-    BASE_DIR / "scraper/static",  # Cambia esta línea
+    BASE_DIR / 'static',
 ]
 
+MONGO_DB_CONFIG = {
+    'host': 'localhost',  # Host de MongoDB
+    'port': 27017,        # Puerto de MongoDB
+    'database': 'farcyprice',  # Nombre de la base de datos
+}
+
+# settings.py
+DATA_UPLOAD_MAX_MEMORY_SIZE = 50 * 1024 * 1024  # 50 MB
 
 
 # Application definition
